@@ -124,17 +124,25 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: 40,
                       ),
-                      Image.asset(
-                        'images/sun1.png',
-                        height: 150,
-                        width: 150,
-                        fit: BoxFit.cover,
+                      // Image.asset(
+                      //   'images/sun1.png',
+                      //   height: 150,
+                      //   width: 150,
+                      //   fit: BoxFit.cover,
+                      // ),
+                      Center(
+                        child: Image.network(
+                          'http://openweathermap.org/img/w/${weatherMap!['weather'][0]['icon']}.png',
+                          height: 150,
+                          width: 150,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       SizedBox(
                         height: 30,
                       ),
                       Text(
-                        "${weatherMap!["weather"][0]["description"]}",
+                        "${weatherMap!["weather"][0]["main"]}",
                         style: TextStyle(
                             color: Color(0xff14405c),
                             fontWeight: FontWeight.bold,
@@ -251,7 +259,7 @@ class _HomePageState extends State<HomePage> {
                         height: 60,
                       ),
                       Container(
-                        height: 150,
+                        height: 180,
                         child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
@@ -260,7 +268,7 @@ class _HomePageState extends State<HomePage> {
                               return Padding(
                                 padding: const EdgeInsets.only(right: 10),
                                 child: Container(
-                                  height: 150,
+                                  height: 180,
                                   width: 170,
                                   decoration: BoxDecoration(
                                       color: Color.fromARGB(255, 85, 119, 131)
@@ -274,29 +282,25 @@ class _HomePageState extends State<HomePage> {
                                         Text(
                                             "${Jiffy("${forecastMap!["list"][index]["dt_txt"]}").format("EEE, h:mm")}"),
                                         SizedBox(
-                                          height: 20,
+                                          height: 10,
                                         ),
-                                        Image.asset(
-                                          forecastMap!["list"][index]["weather"]
-                                                      [0]["description"] ==
-                                                  'broken clouds'
-                                              ? 'images/cloud.png'
-                                              : forecastMap!["list"][index]
-                                                              ["weather"][0]
-                                                          ["description"] ==
-                                                      'overcust clouds'
-                                                  ? 'images/cloud1.png'
-                                                  : forecastMap!["list"][index]
-                                                                  ["weather"][0]
-                                                              ["description"] ==
-                                                          'light rain'
-                                                      ? 'images/rain.png'
-                                                      : 'images/sun_cloud.png',
+                                        Text(
+                                            "${forecastMap!["list"][index]["main"]["temp"]}°"),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Image.network(
+                                          'http://openweathermap.org/img/w/${forecastMap!["list"][index]["weather"][0]['icon']}.png',
                                           height: 50,
                                           width: 50,
                                         ),
                                         SizedBox(
-                                          height: 20,
+                                          height: 10,
+                                        ),
+                                        Text(
+                                            "${forecastMap!["list"][index]["weather"][0]["main"]}"),
+                                        SizedBox(
+                                          height: 5,
                                         ),
                                         Text(
                                             "${forecastMap!["list"][index]["weather"][0]["description"]}")
